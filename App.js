@@ -23,7 +23,7 @@ import ProductDetail from "./src/components/ProductDetail/ProductDetail";
 import PlacedOrder from "./src/components/OrderPlaced/Placed";
 import Payment from "./src/components/Payment/Payment";
 import Congrats from "./src/components/Congrats/Congrats";
-import Rating from "./src/components/Rating/Rating";
+import Ratings from "./src/components/Rating/Rating";
 import Tracker from './src/components/Tracker/Tracker';
 import Context from './src/context/Context'
 
@@ -122,7 +122,7 @@ const App = () => {
           <Stack.Screen name="PlacedOrder" component={PlacedOrder} />
           <Stack.Screen name="Payment" component={Payment} />
           <Stack.Screen name="Congrats" component={Congrats} />
-          <Stack.Screen name="Rating" component={Rating} />
+          <Stack.Screen name="Ratings" component={Ratings} />
           
         </Stack.Navigator>
           

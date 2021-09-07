@@ -1,17 +1,31 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext, useEffect} from 'react';
 import { View, ScrollView, StyleSheet } from "react-native";
 import Header from '../Header/Header';
 import { SearchBar } from "react-native-elements";
 import Carousel from './Carousel';
 import MostPopular from './MostPopular';
+import axios from 'axios'
 import { GlobalContext } from '../../context/Context';
 
 const Discover = ({ navigation }) => {
     const [search, serSearch] = useState("");
+    const [productData, setProductData] = useState([])
     const updateSearch = (search) => serSearch(search);
-    const { setSearch}=useContext(GlobalContext)
+    // const { setSearch}=useContext(GlobalContext)
+    useEffect(() => {
+        makeGetRequest()
+    }, [])
     
-setSearch(search)
+// setSearch(search)
+async function makeGetRequest() {
+
+    let res = await axios.get(`https://foodappnative.herokuapp.com/api/product/getAllProducts`)
+    setProductData(res.data)
+    console.log(res.data)
+}
+const filterProducts = productData.filter(item => {
+    return item.name.toLowerCase().includes(search.toLowerCase());
+  })
     return (
         <View style={{ flex: 1, backgroundColor: "white" }}>
             <Header navigation={navigation} component="Discover" />
@@ -41,9 +55,9 @@ setSearch(search)
                     />
                 </View>
                 <Carousel />
-                <MostPopular navigation={navigation} Heading="Most Popular" />
+                <MostPopular navigation={navigation} productData={filterProducts} Heading="Most Popular" />
                 <View style={{ marginTop: 15 }}>
-                    <MostPopular navigation={navigation} Heading="Best Deals"  />
+                    <MostPopular navigation={navigation} productData={productData} Heading="Best Deals"  />
                 </View>
             </ScrollView>
         </View>

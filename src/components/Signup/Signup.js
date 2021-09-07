@@ -36,7 +36,7 @@ const Signup = ({navigation}) => {
     
     // e.preventDefault()
     // const params=JSON.stringify(user)
-    await axios.post(`https://food-app-native.herokuapp.com/api/user/register`,user)
+    await axios.post(`https://foodappnative.herokuapp.com/api/user/register`,user)
     .then(function (response) {
       // handle success
       console.warn(JSON.stringify(response.data));

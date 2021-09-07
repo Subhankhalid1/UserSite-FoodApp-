@@ -33,7 +33,7 @@ const Login = ({navigation}) => {
   const handleSignIn = async (e )=> {
     // e.preventDefault()
     // const params=JSON.stringify(user)
-     axios.post('http://localhost:8000/api/user/login', user)
+     axios.post('https://foodappnative.herokuapp.com/api/user/login', user)
     .then(function (response) {
       // handle success
       console.warn(JSON.stringify(response.data));

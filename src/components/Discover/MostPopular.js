@@ -7,22 +7,15 @@ import pic3 from "../../assets/SliderImage/8.jpg";
 import pic4 from "../../assets/SliderImage/9.jpg";
 import pic5 from "../../assets/SliderImage/3.jpg";
 import { GlobalContext } from "../../context/Context";
-const MostPopular = ({ Heading, navigation, resDetail, }) => {
-    const { productData, setProductDetail, search } = useContext(GlobalContext);
-console.log(search)
- const filterProducts = productData.filter(item => {
-        return item.name.toLowerCase().includes(search.toLowerCase());
-      })
-
+const MostPopular = ({ Heading, navigation, resDetail, productData }) => {
+    const {  setProductDetail } = useContext(GlobalContext);
+   
+console.log(productData)
     const navigationFunc = (item) => {
-       
-        if (resDetail === true) {
+    
             setProductDetail(item)
-            return navigation.navigate(`ProdDetail`);
-        }
-        else {
-            return navigation.navigate("ResDetail");
-        }
+            return navigation.navigate("ProdDetail");
+        
     }
    
 
