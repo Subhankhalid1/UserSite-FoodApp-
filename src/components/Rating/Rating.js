@@ -4,10 +4,11 @@ import Pic from "../../assets/SliderImage/3.jpg";
 import RatingItem from './RatingItem';
 import axios from 'axios'
 import { Rating } from 'react-native-ratings';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 const Ratings = ({ navigation, route }) => {
-    const { productID } = route.params
+    const { productID, productDetail } = route.params
     const [review, setReview] = useState({
   
         description: '',
@@ -26,14 +27,27 @@ const Ratings = ({ navigation, route }) => {
       }
    
     console.log(productID)
+    const getData = async () => {
+        try {
+          const value = await AsyncStorage.getItem('user')
+          console.log("value",value)
+          if(value !== null) {
+            // value previously stored
+          }
+        } catch(e) {
+          // error reading value
+        }
+      }
+      getData()
+    console.log("user", id)
     const userReview = async (e )=> {
         const sendData={
             productID:productID,
             user:'612241b0a3632100162be202',
-            // rating:review.rating,
+            rating:review.rating,
             description:review.description
         }
-        let res = await axios.post(`https://foodappnative.herokuapp.com/api/product/review`, sendData)
+        let res = await axios.post(`http://137.184.102.144:8000/api/product/review`, sendData)
         setReview(res.data)
         console.log(res.data)
 
@@ -56,16 +70,16 @@ const Ratings = ({ navigation, route }) => {
                     width: "100%",
                     height: 235,
                     borderRadius: 15
-                }} source={Pic} />
+                }} source={{ uri: `http://137.184.102.144:8000/${productDetail.productPic}` }} />
             </View>
 
             <Text style={{
-                fontSize: 20,
+                fontSize: 25,
                 fontWeight: "bold",
                 textAlign: "center",
-                color: "black"
-            }}>Pizza Margherita</Text>
-            {/* <RatingItem /> */}
+                color: "#bad759"
+            }}>{productDetail.name}</Text>
+            <RatingItem />
             {/* <Rating
                 type="custom"
                 onFinishRating={ratingCompleted}

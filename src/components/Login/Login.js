@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios'
+import AsyncStorage from '@react-native-community/async-storage'
 import {
   View,
   Text,
@@ -30,13 +31,23 @@ const Login = ({navigation}) => {
     })
   }
   console.log(user)
-  const handleSignIn = async (e )=> {
+  const handleSignIn = async (e)=> {
     // e.preventDefault()
     // const params=JSON.stringify(user)
-     axios.post('https://foodappnative.herokuapp.com/api/user/login', user)
+     axios.post('http://137.184.102.144:8000/api/user/login', user)
     .then(function (response) {
       // handle success
-      console.warn(JSON.stringify(response.data));
+      console.log(JSON.stringify(response.data));
+      const storeData = async (value) => {
+        try {
+          const jsonValue = JSON.stringify(value)
+          await AsyncStorage.setItem('user', jsonValue)
+        } catch (e) {
+          // saving error
+        }
+      }
+      storeData()
+      navigation.navigate("Home")
     })
     .catch(function (error) {
       // handle error
@@ -86,7 +97,7 @@ const Login = ({navigation}) => {
         </View>
         <TouchableOpacity
           style={{paddingHorizontal: 50}}
-          onPress={() => navigation.navigate('Home')}>
+          onPress={() => handleSignIn()}>
           <Text style={styles.button} >
             LOGIN
           </Text>

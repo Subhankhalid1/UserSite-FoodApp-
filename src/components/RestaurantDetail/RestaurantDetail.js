@@ -14,11 +14,11 @@ const RestaurantDetail = ({ navigation, route}) => {
     useEffect(() => {
         VendorByProduct()
     }, [])
-    console.log("id", id)
+    console.log("id", shopName)
     
     async function VendorByProduct() {
 
-        let res = await axios.post(`https://foodappnative.herokuapp.com/api/product/getByOwner`, { owner : id })
+        let res = await axios.post(`http://137.184.102.144:8000/api/product/getByOwner`, { owner : id })
         setProductData(res.data)
 
         console.log("fetschdata",res.data)

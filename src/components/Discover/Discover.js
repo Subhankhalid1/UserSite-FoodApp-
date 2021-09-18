@@ -19,7 +19,7 @@ const Discover = ({ navigation }) => {
 // setSearch(search)
 async function makeGetRequest() {
 
-    let res = await axios.get(`https://foodappnative.herokuapp.com/api/product/getAllProducts`)
+    let res = await axios.get(`http://137.184.102.144:8000/api/product/getAllProducts`)
     setProductData(res.data)
     console.log(res.data)
 }

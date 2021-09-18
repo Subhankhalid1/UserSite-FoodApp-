@@ -34,7 +34,7 @@ const ProductDetail = ({navigation}) => {
     //stored data aysnce storage and after payment data sent to the vendor
 
     let res = await axios.post(
-      `https://foodappnative.herokuapp.com/api/order/create`,
+      `http://137.184.102.144:8000/api/order/create`,
       sendData,
     )
     // setProductData(res.data)
@@ -51,7 +51,7 @@ const ProductDetail = ({navigation}) => {
         <ActivityIndicator />
       ) : (
         <ScrollView>
-          <Image source={image} style={{width, height: 225}} />
+          <Image source={{ uri: `http://137.184.102.144:8000/${productDetail.productPic}` }} style={{width, height: 225}} />
           <View
             style={{
               flexDirection: 'row',
@@ -116,7 +116,7 @@ const ProductDetail = ({navigation}) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() =>
-              navigation.navigate('Ratings', {productID: productDetail._id})
+              navigation.navigate('Ratings', {productID: productDetail._id, productDetail:productDetail})
             }>
             <Text
               style={{

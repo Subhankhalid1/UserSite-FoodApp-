@@ -1,11 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import { Image } from "react-native-elements";
-import pic1 from "../../assets/SliderImage/6.jpg";
-import pic2 from "../../assets/SliderImage/7.jpg";
-import pic3 from "../../assets/SliderImage/8.jpg";
-import pic4 from "../../assets/SliderImage/9.jpg";
-import pic5 from "../../assets/SliderImage/3.jpg";
+
 import { GlobalContext } from "../../context/Context";
 const MostPopular = ({ Heading, navigation, resDetail, productData }) => {
     const {  setProductDetail } = useContext(GlobalContext);
@@ -24,7 +20,7 @@ console.log(productData)
         return (
             <TouchableOpacity onPress={(e)=>navigationFunc(item)} style={styles.view}>
                 {/* {console.warn(item.productPic)} */}
-                <Image key={index} source={pic3} style={styles.image} />
+                <Image key={index} source={{ uri: `http://137.184.102.144:8000/${item.productPic}` }} style={styles.image} />
                         <View>   
                                 <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 5 }}>
                                     <Text style={{ color: "#777" }}>{item.name}</Text>
@@ -49,23 +45,7 @@ console.log(productData)
             renderItem={_renderItems}
             keyExtractor={(item, index) => index.toString()}
         />
-        {/* {
-            filterProducts && filterProducts.map((item, id) => {
-                return(<TouchableOpacity onPress={(e)=>navigationFunc(item)} key={id} style={styles.view}>
-                    
-                    <Image key={index} source={pic3} style={styles.image} />
-                            <View>   
-                                    <View style={{ flexDirection: "row", justifyContent: "space-between", marginTop: 5 }}>
-                                        <Text style={{ color: "#777" }}>{item.name}</Text>
-                                        <Text style={{ color: "red" }}>${item.price}</Text>
-                                    </View>
-                                
-                            </View>
-                    
-                </TouchableOpacity>
-                )
-            })
-        } */}
+        
     </>
 }
 

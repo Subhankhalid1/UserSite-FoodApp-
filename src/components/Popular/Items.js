@@ -37,7 +37,7 @@ const Items = ({ navigation }) => {
           onPress={(e) => navigationFunc(item)}
           key={index}
           style={styles.mainView}>
-          <Image source={{ uri: 'https://foodappnative.herokuapp.com/uploads/products/download.jpg' }} style={styles.image} />
+          <Image source={{ uri: 'http://137.184.102.144:8000/uploads/products/download.jpg' }} style={styles.image} />
           <View style={styles.detailView}>
             <View>
               <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{item.name}</Text>
@@ -50,8 +50,8 @@ const Items = ({ navigation }) => {
             </View>
             <View>
               <View>
-                {/* <Text style={{fontSize: 17, color: '#777'}}>distance</Text> */}
-                <Text style={styles.textMuted}>reviews</Text>
+                <Text style={{fontSize: 17, color: '#777'}}>distance</Text>
+                {/* <Text style={styles.textMuted}>reviews</Text> */}
                 <Text style={styles.textMuted}>Review</Text>
               </View>
             </View>
