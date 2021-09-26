@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
-  Alert
+  
 } from 'react-native'
 import {Input} from 'react-native-elements'
 import * as Animatable from 'react-native-animatable'

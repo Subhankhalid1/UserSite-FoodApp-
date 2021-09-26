@@ -4,6 +4,7 @@ import Pic from '../../assets/placed.png'
 import Header from '../Header/Header'
 
 const Placed = ({navigation}) => {
+  
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header navigation={navigation} component='Options' />

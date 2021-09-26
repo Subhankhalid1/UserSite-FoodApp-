@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {View, LogBox} from 'react-native'
 import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
@@ -27,6 +27,7 @@ import Ratings from './src/components/Rating/Rating'
 import Tracker from './src/components/Tracker/Tracker'
 import Context from './src/context/Context'
 import AsyncStorage from '@react-native-community/async-storage'
+import Messages from './src/components/message/message'
 
 LogBox.ignoreLogs(['Reanimated 2'])
 LogBox.ignoreLogs(['VirtualizedLists should never be nested'])
@@ -125,6 +126,7 @@ const BottomTabScreen = () => {
 }
 
 const App = () => {
+  const [auth, setAuth] = useState()
   const Stack = createStackNavigator()
   const config = {
     animation: 'spring',
@@ -138,9 +140,11 @@ const App = () => {
     },
   }
   useEffect(async () => {
+
     const jsonValue = await AsyncStorage.getItem('user')
-  jsonValue != null ? JSON.parse(jsonValue) : null
-    console.log('user', jsonValue)
+    const result=jsonValue != null ? JSON.parse(jsonValue) : null
+    console.log('user', result)
+    setAuth(result?.user?._id)
   })
 
   return (
@@ -148,7 +152,7 @@ const App = () => {
       <Context>
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName='Splash'
+            initialRouteName='Home'
             headerMode='none'
             screenOptions={{
               gestureEnabled: true,
@@ -158,23 +162,33 @@ const App = () => {
                 close: config,
               },
             }}>
-            <Stack.Screen name='Splash' component={SplashScreen} />
+               {/* {auth == null ? (<> */}
+                <Stack.Screen name='Splash' component={SplashScreen} />
             <Stack.Screen name='One' component={ScreenOne} />
             <Stack.Screen name='Two' component={ScreenTwo} />
             <Stack.Screen name='Three' component={ScreenThree} />
-            <Stack.Screen name='Tracker' component={Tracker} />
+          
             <Stack.Screen name='Register' component={Signup} />
             <Stack.Screen name='Login' component={Login} />
+               {/* </>):(
+               <> */}
+               
             <Stack.Screen name='Home' component={DrawerScreen} />
             <Stack.Screen name='Discover' component={DrawerScreen} />
             <Stack.Screen name='Profile' component={DrawerScreen} />
             <Stack.Screen name='Setting' component={Setting} />
             <Stack.Screen name='ResDetail' component={RestaurantDetail} />
             <Stack.Screen name='ProdDetail' component={ProductDetail} />
+            <Stack.Screen name='Tracker' component={Tracker} />
             <Stack.Screen name='PlacedOrder' component={PlacedOrder} />
             <Stack.Screen name='Payment' component={Payment} />
             <Stack.Screen name='Congrats' component={Congrats} />
+            <Stack.Screen name='Messages' component={Messages} />
             <Stack.Screen name='Ratings' component={Ratings} />
+
+               {/* </>
+               )} */}
+            
           </Stack.Navigator>
         </NavigationContainer>
       </Context>

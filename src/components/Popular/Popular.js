@@ -15,9 +15,9 @@ const Popular = ({ navigation }) => {
             <ScrollView>
                 <View style={styles.mainView}>
                     <SearchBar
-                        placeholder="Search"
+                        placeholder="Search Restaurants"
                         onChangeText={updateSearch}
-                        value={search}
+                        value={search }
                         clearIcon={true}
                         showLoading={true}
                         containerStyle={{

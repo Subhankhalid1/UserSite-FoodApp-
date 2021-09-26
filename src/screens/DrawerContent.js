@@ -3,9 +3,15 @@ import { DrawerContentScrollView } from "@react-navigation/drawer";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome5Pro"
+import AsyncStorage from '@react-native-community/async-storage'
 import UserAvatar from "../assets/logo.jpeg";
 
 const DrawerContent = (props) => {
+    
+    const Logout =()=>{
+       // setauth(null)
+        AsyncStorage.clear()
+    }
     return (
         <View style={styles.main}>
             <View style={styles.topView}>
@@ -39,7 +45,7 @@ const DrawerContent = (props) => {
                 <TouchableOpacity style={styles.touchDesign}>
                     <View style={styles.subView}>
                         <Icon name='login' size={25} color="white" />
-                        <Text style={styles.text}>Logout</Text>
+                        <Text style={styles.text} onPress={()=>Logout()}>Logout</Text>
                     </View>
                 </TouchableOpacity>
             </DrawerContentScrollView>

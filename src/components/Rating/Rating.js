@@ -39,7 +39,7 @@ const Ratings = ({ navigation, route }) => {
         }
       }
       getData()
-    console.log("user", id)
+    
     const userReview = async (e )=> {
         const sendData={
             productID:productID,

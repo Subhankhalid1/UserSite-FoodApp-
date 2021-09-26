@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
 import {
   Image,
   Text,
@@ -9,9 +9,10 @@ import {
   ActivityIndicator,
 } from 'react-native'
 import Header from '../Header/Header'
-import image from '../../assets/SliderImage/3.jpg'
+import Geolocation from '@react-native-community/geolocation';
 import Icon from 'react-native-vector-icons/MaterialIcons'
 import {GlobalContext} from '../../context/Context'
+import AsyncStorage from '@react-native-community/async-storage'
 import axios from 'axios'
 const ProductDetail = ({navigation}) => {
   const {productDetail} = useContext(GlobalContext)
@@ -19,15 +20,34 @@ const ProductDetail = ({navigation}) => {
   const {width} = Dimensions.get('window')
   // const { productID } = route.params
   //     /api/order/create
+const [latitude, setlatitude]=useState()
+const [profileData, setProfileData] = useState()
+const [longitude, setlongitude] = useState()
+useEffect(()=>{
+  Geolocation.getCurrentPosition(info => {
+    setlatitude(info.coords.latitude)
+    setlongitude(info.coords.longitude)
+   } )
+   profile()
+  },[])
+  const profile = async () => {
+    const jsonValue = await AsyncStorage.getItem('user')
+    // jsonValue != null ? JSON.parse(jsonValue) : null
+    const result = JSON.parse(jsonValue)
+    console.log('user wale', result?.user)
 
+    setProfileData(result?.user)
+  }
   async function PostOrderByUser () {
+  
+
     let sendData = {
       owner: productDetail.owner,
-      user: '612241b0a3632100162be202',
+      user: profileData._id,
       product: productDetail._id,
       location: {
-        longitude: '31.4504',
-        latitude: '73.1350',
+        longitude: longitude,
+        latitude: latitude,
       },
     }
 
@@ -41,12 +61,12 @@ const ProductDetail = ({navigation}) => {
     if (res.data) {
       navigation.navigate('PlacedOrder')
     }
-    console.log('fetschdata', res.data)
+    console.log('Create Order By User', res.data)
   }
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header navigation={navigation} component='Pizza Margherita' />
+      <Header navigation={navigation} component={productDetail.name} />
       {!productDetail ? (
         <ActivityIndicator />
       ) : (
@@ -59,7 +79,7 @@ const ProductDetail = ({navigation}) => {
               padding: 15,
               alignItems: 'center',
             }}>
-            <Text style={{fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={{fontSize: 20, fontWeight: 'bold',color: '#bad759'}}>
               {productDetail.name}
             </Text>
             <Text style={{fontSize: 20, color: '#bad759', fontWeight: 'bold'}}>
@@ -85,12 +105,12 @@ const ProductDetail = ({navigation}) => {
                   color='#bad759'
                   style={{marginRight: 2}}
                 />
-                <Text style={{color: '#777'}}>4.9</Text>
+                <Text style={{color: '#bad759'}}>{productDetail.reviews.rating}</Text>
               </View>
               <Text style={{color: '#777'}}>Rating</Text>
             </View>
             <View>
-              <Text style={{color: '#777'}}>2356</Text>
+              <Text style={{color: '#bad759'}}>{productDetail.reviews.length}</Text>
               <Text style={{color: '#777'}}>Reviews</Text>
             </View>
             <View>

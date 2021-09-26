@@ -7,7 +7,7 @@ import {
   Dimensions,
   StyleSheet,
   TouchableOpacity,
-
+ ActivityIndicator
 } from 'react-native'
 
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -30,23 +30,20 @@ const Items = ({ navigation }) => {
   const _renderItems = ({ item, index }) => {
     console.log("helo", item.shopName)
     return (<>
-      {
-        !item ? (
-          <Text>Loading..</Text>
-        ) : (<TouchableOpacity
+      <TouchableOpacity
           onPress={(e) => navigationFunc(item)}
           key={index}
           style={styles.mainView}>
           <Image source={{ uri: 'http://137.184.102.144:8000/uploads/products/download.jpg' }} style={styles.image} />
           <View style={styles.detailView}>
             <View>
-              <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{item.name}</Text>
+              <Text style={{ fontSize: 17, fontWeight: 'bold' }}>{item?.shopName}</Text>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Icon name='star-rate' color='#bad759' style={{ marginRight: 2 }} />
                 <Text style={styles.textMuted}>{item.rating}</Text>
               </View>
               <Text style={styles.textMuted}>Rating</Text>
-              <Text style={styles.textMuted}>{item.updatedAt}</Text>
+              <Text style={styles.textMuted}>{item.name}</Text>
             </View>
             <View>
               <View>
@@ -56,8 +53,8 @@ const Items = ({ navigation }) => {
               </View>
             </View>
           </View>
-        </TouchableOpacity>)
-      }
+        </TouchableOpacity>
+      
 
     </>)
   }

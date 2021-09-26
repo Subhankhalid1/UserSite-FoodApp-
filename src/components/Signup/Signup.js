@@ -11,12 +11,13 @@ import {
 import {Input} from 'react-native-elements'
 import * as Animatable from 'react-native-animatable'
 import AsyncStorage from '@react-native-community/async-storage'
+
 // import {Globalcontext} from '../../context/Context'
 const {height} = Dimensions.get('screen')
 // const { userRegister, setUserRegister } = useContext(Globalcontext);
 const Signup = ({navigation}) => {
   //   const {userRegister, setUserRegister} = useContext(Globalcontext)
-
+ 
   const [user, setUser] = useState({
     name: ' ',
     email: ' ',
@@ -33,6 +34,7 @@ const Signup = ({navigation}) => {
   const handleSignUp = async e => {
     // e.preventDefault()
     // const params=JSON.stringify(user)
+    
     await axios
       .post(`http://137.184.102.144:8000/api/user/register`, user)
       .then(async function (response) {
@@ -42,7 +44,7 @@ const Signup = ({navigation}) => {
         const jsonValue = JSON.stringify(response.data)
         await AsyncStorage.setItem('user', jsonValue)
 
-        navigation.navigate('Home')
+        //navigation.navigate('Home')
       })
       .catch(function (error) {
         // handle error

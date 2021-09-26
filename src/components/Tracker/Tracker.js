@@ -1,4 +1,4 @@
- import React, { Component, useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
  import { Dimensions, StyleSheet } from 'react-native';
  import MapView from 'react-native-maps';
  import MapViewDirections from 'react-native-maps-directions';
