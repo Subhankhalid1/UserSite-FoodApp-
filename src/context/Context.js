@@ -9,7 +9,7 @@ const Context = ({ children }) => {
     const [vendorList, setVendorList] = useState([])
     const [vendorDetail, setVendorDetail]=useState([])
     const [vendorData, setVendorData]=useState([])
-
+const [auth, setAuth]=useState()
 
     useEffect(() => {
 
@@ -48,7 +48,7 @@ const Context = ({ children }) => {
 
         <GlobalContext.Provider value={{
             productData, productDetail, setProductDetail, search, setSearch,
-            vendorList,setVendorDetail, vendorData
+            vendorList,setVendorDetail, vendorData, auth, setAuth
         }}>
             {children}
         </GlobalContext.Provider>

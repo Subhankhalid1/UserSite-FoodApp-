@@ -34,9 +34,9 @@ useEffect(()=>{
     const jsonValue = await AsyncStorage.getItem('user')
     // jsonValue != null ? JSON.parse(jsonValue) : null
     const result = JSON.parse(jsonValue)
-    console.log('user wale', result?.user)
+    console.log('user wale', result)
 
-    setProfileData(result?.user)
+    setProfileData(result)
   }
   async function PostOrderByUser () {
   
@@ -66,7 +66,7 @@ useEffect(()=>{
 
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
-      <Header navigation={navigation} component={productDetail.name} />
+      <Header navigation={navigation}  style={{color:'white'}} component={productDetail.name} />
       {!productDetail ? (
         <ActivityIndicator />
       ) : (
@@ -83,6 +83,11 @@ useEffect(()=>{
               {productDetail.name}
             </Text>
             <Text style={{fontSize: 20, color: '#bad759', fontWeight: 'bold'}}>
+            {productDetail.discount?productDetail.discount/productDetail.price*100:0}% Off
+            </Text>
+          </View>
+          <View style={{paddingHorizontal: 15}}>
+            <Text style={{color: '#777', fontSize: 14,fontWeight: 'bold'}}>
               ${productDetail.price}
             </Text>
           </View>
@@ -114,8 +119,8 @@ useEffect(()=>{
               <Text style={{color: '#777'}}>Reviews</Text>
             </View>
             <View>
-              <Text style={{color: '#777'}}>6.4k</Text>
-              <Text style={{color: '#777'}}>Orders</Text>
+              <Text style={{color: '#777'}}>After Discount</Text>
+              <Text style={{color: 'red'}}>${productDetail.discount?productDetail.price-productDetail.discount:productDetail.price}</Text>
             </View>
           </View>
           <TouchableOpacity onPress={PostOrderByUser}>

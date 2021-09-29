@@ -11,11 +11,11 @@ export default function Messages ({navigation}) {
   socket = io(ENDPOINT)
   useEffect(async () => {
     const jsonValue = await AsyncStorage.getItem('user')
-    // jsonValue != null ? JSON.parse(jsonValue) : null
+     //jsonValue != null ? JSON.parse(jsonValue) : null
     const result = JSON.parse(jsonValue)
-    console.log('user wale', result.user)
-    setNewMessages(result.user)
-    socket.emit('join', result?.user._id)
+    console.log('user wale', jsonValue)
+    setNewMessages(result)
+    socket.emit('join', result?._id)
     socket.on('getMessage', msg => {
       console.log(msg)
       setUserTalk(...msg, {msg})

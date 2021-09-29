@@ -34,20 +34,20 @@ const Login = ({navigation}) => {
   const handleSignIn = async (e)=> {
     // e.preventDefault()
     // const params=JSON.stringify(user)
-     axios.post('http://137.184.102.144:8000/api/user/login', user)
+     axios.post(`http://137.184.102.144:8000/api/user/login`, user)
     .then(function (response) {
       // handle success
       console.log(JSON.stringify(response.data));
-      const storeData = async (value) => {
-        try {
-          const jsonValue = JSON.stringify(value)
-          await AsyncStorage.setItem('user', jsonValue)
-        } catch (e) {
-          // saving error
-        }
-      }
-      storeData()
-      navigation.navigate("Home")
+      // const storeData = async (value) => {
+      //   try {
+      //     const jsonValue = JSON.stringify(value)
+      //     await AsyncStorage.setItem('user', jsonValue)
+      //   } catch (e) {
+      //     // saving error
+      //   }
+      // }
+      // storeData()
+     // navigation.navigate("Home")
     })
     .catch(function (error) {
       // handle error
@@ -91,9 +91,9 @@ const Login = ({navigation}) => {
       
         <View style={{flexDirection: 'row', paddingLeft: 10}}>
           <Text style={{fontSize: 15}}>Already have an account ? </Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+          {/* <TouchableOpacity onPress={() => navigation.navigate('Login')}>
            
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
         <TouchableOpacity
           style={{paddingHorizontal: 50}}

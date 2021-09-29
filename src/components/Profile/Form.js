@@ -10,13 +10,13 @@ const Form = ({UploadImage, profile}) => {
   return (
     <View style={{marginTop: 25}}>
       <Input
-        placeholder={profile?.user.email}
+        placeholder={profile?.email}
         // rightIcon={<MaterialIcon name='camera' size={28} color='#bad759' />}
         // rightIcon={<MaterialIcon name='pencil' size={24} color='#bad759' />}
     
       />
       <Input
-        placeholder={String(profile?.user.phone)}
+        placeholder={String(profile?.phone)}
         // leftIcon={<Icon name='user' size={24} color='#bad759' />}
         // rightIcon={<MaterialIcon name='pencil' size={24} color='#bad759' />}
         // errorMessage='ENTER A VALID ERROR HERE'

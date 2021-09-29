@@ -5,11 +5,11 @@ import Icon from "react-native-vector-icons/AntDesign";
 import FontAwesome from "react-native-vector-icons/FontAwesome5Pro"
 import AsyncStorage from '@react-native-community/async-storage'
 import UserAvatar from "../assets/logo.jpeg";
-
+import { GlobalContext } from '../context/Context';
 const DrawerContent = (props) => {
     
     const Logout =()=>{
-       // setauth(null)
+       //setAuth(null)
         AsyncStorage.clear()
     }
     return (

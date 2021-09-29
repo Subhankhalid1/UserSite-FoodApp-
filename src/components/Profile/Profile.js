@@ -49,7 +49,7 @@ const Profile = ({navigation}) => {
     setProfileData(result)
   }
 
-  //   console.log(profileData)
+    console.log("ttttttttt",profileData)
   return (
     <View style={{flex: 1, backgroundColor: 'white'}}>
       <Header navigation={navigation} component='Profile' />
@@ -61,7 +61,7 @@ const Profile = ({navigation}) => {
             style={{width: 100, height: 100, borderRadius: 50}}
           />
           <Text style={{color: 'white', fontSize: 25, marginTop: 5}}>
-            {profileData?.user.name}{' '}
+            {profileData?.name}{' '}
           </Text>
           <Text style={{color: 'white', fontSize: 18, marginTop: 5}}>
           {adress}

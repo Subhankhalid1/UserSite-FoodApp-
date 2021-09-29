@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInputFocusEventData,
   Text,
+  ActivityIndicator
 } from 'react-native'
 import Header from '../Header/Header'
 import {SearchBar} from 'react-native-elements'
@@ -13,6 +14,7 @@ import {GlobalContext} from '../../context/Context'
 import axios from 'axios'
 const RestaurantDetail = ({navigation, route}) => {
   const [search, serSearch] = useState('')
+  const [ActivityIndicatorStatus, setActivityIndicator] = useState(false);
   const [productData, setProductData] = useState([])
   const updateSearch = search => serSearch(search)
   // const { vendorData } = useContext(GlobalContext)
@@ -23,10 +25,12 @@ const RestaurantDetail = ({navigation, route}) => {
   console.log('id', shopName)
 
   async function VendorByProduct () {
+    setActivityIndicator(true)
     let res = await axios.post(
       `http://137.184.102.144:8000/api/product/getByOwner`,
       {owner: id},
     )
+    setActivityIndicator(false)
     setProductData(res.data)
 
     console.log('fetschdata', res.data)
@@ -64,6 +68,22 @@ const RestaurantDetail = ({navigation, route}) => {
             lightTheme={true}
           />
         </View>
+        {
+          ActivityIndicatorStatus == true ? (
+            <View
+              style={{
+               alignItems:'center',
+                justifyContent: 'center',
+                marginTop:200
+           
+              }}>
+              <ActivityIndicator
+                style={{alignSelf: 'center'}}
+                size="large"
+                color={"#bad759"}
+              />
+            </View>
+          ) : (<>
         <View style={{marginTop: 15}}>
           <MostPopular
             navigation={navigation}
@@ -76,41 +96,45 @@ const RestaurantDetail = ({navigation, route}) => {
         <View
           style={{
             display: 'flex',
-            marginTop: 45,
+            marginTop: 30,
             backgroundColor: 'white',
             alignContent: 'center',
             alignItems: 'center',
           }}>
           <Text
             style={{
-              fontSize: 40,
-              fontFamily: 'Serif',
+              fontSize: 30,
+              fontFamily: 'bold',
+              color:'#777'
+             
             }}>
-            Buyer reviews
+            Customer reviews
           </Text>
-          <Text>
+          <View>
             {productData.map((item, id) => (
               <View
                 key={id}
                 style={{
-                  backgroundColor: '#bad759',
-                  height: 50,
-                  borderRadius: 10,
+                  // backgroundColor: '#bad759',
+                 // height: 50,
+                  // borderRadius: 10,
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center',
+                  margin:10,
+   
+                  flexDirection: 'row',
+                  justifyContent: 'space-around',
                 }}>
                 {console.log('reviews', item?.reviews[0]?.description)}
-                <Text
-                  style={{
-                    color: 'white',
-                  }}>
+                <Text style={{color: '#777'}}>
+                  {' '}
                   {item?.reviews[0]?.description}
                 </Text>
               </View>
             ))}
-          </Text>
+          </View>
         </View>
+         </> )}
       </ScrollView>
     </View>
   )

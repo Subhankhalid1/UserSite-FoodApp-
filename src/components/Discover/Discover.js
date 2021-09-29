@@ -1,15 +1,18 @@
 import React, {useState, useContext, useEffect} from 'react'
-import {View, ScrollView, StyleSheet} from 'react-native'
+import {View, ScrollView, StyleSheet,ActivityIndicator} from 'react-native'
 import Header from '../Header/Header'
 import {SearchBar} from 'react-native-elements'
 import Carousel from './Carousel'
 import MostPopular from './MostPopular'
+import BestDeals from './BestDeals'
 import axios from 'axios'
 import {GlobalContext} from '../../context/Context'
 
+
 const Discover = ({navigation}) => {
-  const [loading, setloading] = useState(true)
+  // const [loading, setloading] = useState(true)
   const [search, serSearch] = useState('')
+  const [ActivityIndicatorStatus, setActivityIndicator] = useState(false);
   const [productData, setProductData] = useState([])
   const updateSearch = search => serSearch(search)
   // const { setSearch}=useContext(GlobalContext)
@@ -19,11 +22,14 @@ const Discover = ({navigation}) => {
 
   // setSearch(search)
   async function makeGetRequest () {
+    setActivityIndicator(true)
     let res = await axios
       .get(`http://137.184.102.144:8000/api/product/getAllProducts`)
     //   .then(() => setloading(false))
-    setProductData(res.data)
     console.log(res.data)
+    setActivityIndicator(false)
+    setProductData(res.data)
+    
   }
   const filterProducts = productData.filter(item => {
     return item.name.toLowerCase().includes(search.toLowerCase())
@@ -58,18 +64,36 @@ const Discover = ({navigation}) => {
           />
         </View>
         <Carousel />
+        {
+          ActivityIndicatorStatus == true ? (
+            <View
+              style={{
+               alignItems:'center',
+                justifyContent: 'center',
+                marginTop:100
+           
+              }}>
+              <ActivityIndicator
+                style={{alignSelf: 'center'}}
+                size="large"
+                color={"#bad759"}
+              />
+            </View>
+          ) : (<>
         <MostPopular
           navigation={navigation}
           productData={filterProducts}
           Heading='Most Popular'
         />
-        <View style={{marginTop: 15}}>
-          <MostPopular
+        <View style={{marginTop: 15, marginBottom:10}}>
+          <BestDeals
             navigation={navigation}
             productData={productData}
-            Heading='Best Deals'
+            Heading='Best Deals Offers'
           />
         </View>
+        </>
+          )}
       </ScrollView>
     </View>
   )
